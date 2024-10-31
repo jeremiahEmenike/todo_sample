@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+   <title>Liste Operateur</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<h1 class="text-center mt-3 mb-3">Liste operateur</h1>
+<table class="table table-dark table-bordered">
+   <thead>
+     <tr>
+       <th scope="col">Nom</th>
+       <th scope="col">Prenom</th>
+       <th scope="col">Numero</th>
+       <th scope="col">Date_vm</th>
+       <th scope="col">Date_fts</th>
+     </tr>
+   </thead>
+   <tbody>
+   {% for i in obj %}
+     <tr>
+       <td>{{i.Nom}}</td>
+       <td>{{i.Prenom}}</td>
+       <td>{{i.Numero}}</td>
+       <td>{{i.Date_vm}}</td>
+       <td>{{i.Date_fts}}</td>
+
+       <!--<td>
+        {% if i.completed %}
+           Completed
+        {% else %}
+           Not Completed
+        {% endif %}
+       </td>-->
+
+       <td>
+          <button class="btn btn-warning"><a href="{% url 'update_url' i.id %}">Modifier</a></button>
+          <button class="btn btn-danger text-light"><a href="{% url 'delete_url' i.id %}">Supprimer</a></button>
+          <button class="btn btn-primary bg-light"><a href="{% url 'envoyer_sms' %}">RDV</a></button>
+       </td>
+    </tr>
+   {% endfor %}
+   </tbody>
+ </table>
+</div>
+{% endblock %}

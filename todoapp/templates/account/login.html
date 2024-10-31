@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <title>LOGIN</title>
+{% endblock %} 
+
+{% block content %}
+<div>
+    <form method="post" class="jumbotron">{% csrf_token %}
+        {% if error %}
+        <p style='color:red'>{{ error }}</p>
+        {% endif %}
+        <div>
+            <input type="text" name="username" placeholder="Username">
+        </div>    
+        <div>
+            <input type="password" name="password" placeholder="password">
+        </div>
+        <button type="submit">Connect</button>
+    </form>
+</div>
+{% endblock %}
