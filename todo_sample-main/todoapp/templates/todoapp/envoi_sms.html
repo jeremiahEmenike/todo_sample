@@ -1,0 +1,40 @@
+<!-- envoi_sms.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Envoyer un SMS</title>
+</head>
+<body>
+    <h1>Appuyer sur le bouton pour envoyer un SMS</h1>
+    
+    <form id="smsForm" action="{% url 'bouton_sms_view' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Envoyer le SMS</button>
+    </form>
+
+    <div id="resultat"></div>
+
+    <script>
+        // Soumettre le formulaire avec AJAX pour une meilleure UX
+        document.getElementById('smsForm').onsubmit = function(event) {
+            event.preventDefault();
+            fetch("{% url 'bouton_sms_view' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',  // CSRF token for Django security
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('resultat').innerText = data.message;
+            })
+            .catch(error => {
+                document.getElementById('resultat').innerText = "Erreur lors de l'envoi du SMS";
+                console.error('Erreur:', error);
+            });
+        }
+    </script>
+</body>
+</html>
